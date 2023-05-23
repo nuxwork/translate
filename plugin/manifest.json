@@ -1,0 +1,21 @@
+{
+  "manifest_version": 3,
+  "name": "划词翻译",
+  "version": "1.0",
+  "permissions": ["activeTab", "contextMenus", "webRequest"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": "hello_extensions.png"
+  },
+
+  "content_scripts": [
+    {
+      "matches": ["*://*/*"],
+      "js": ["content.js"],
+      "css": ["styles.css"]
+    }
+  ]
+}
