@@ -1,0 +1,16 @@
+.translateSpan{
+    position: absolute;
+    display: block;
+    background: #fff;
+    border-radius: 4px;
+    padding-left: 4px;
+    padding-right: 4px;
+    border: 1px solid #333;
+}
+
+.translateBtn{
+    position: absolute;
+    display: block;
+    background-color: aqua;
+    left: 99px;
+}
