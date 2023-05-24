@@ -1,34 +1,47 @@
 import { useState, useEffect } from 'react';
 import React from 'react';
-import './translate-ctrl.css'
 
 const TranslateCtrl: React.FC =()=>{
     const [text, setText] = useState('');
     const [result, setResult] = useState('');
     const [action, setAction] = useState('none');
-    let posStyle = {
-        // position: 'absolute' as Position,
-        left: '0px',
-        top: '0px',
+    const [pos, setPos] = useState({});
+
+    let btnStyle = {
+        position: 'absolute' as 'absolute',
+        display: 'block',
+        zIndex: 1000,
+    };
+
+    let spanStyle = {
+        position: 'absolute' as 'absolute',
+        display: 'block',
+        background: '#fff',
+        borderRadius: '4px',
+        paddingLeft: '4px',
+        paddingRight: '4px',
+        border: '1px solid #333',
+        zIndex: 1000,
     }
 
     function handleMousedown(event: any) {
-        console.log('handleMousedown')
         let selectedText = window.getSelection()?.toString()
         if (selectedText && selectedText.length > 0) {
         } else {
+            setResult('')
             setAction('none')
         }
     }
 
     function handleMouseup(event: any) {
-        console.log('handleMouseup')
         var selectedText = window.getSelection()?.toString();
         if (selectedText && selectedText.length > 0) {
-            setText( selectedText)
-            console.log('选中了：', text)
-            posStyle.left = (event.pageX) + 'px'
-            posStyle.top = (event.pageY - 40) +'px'
+            setText( selectedText )
+            setPos({
+                left: (event.pageX) + 'px',
+                top: (event.pageY - 40) +'px',
+            })
+            setResult('')
             setAction('trans')
         }
     }
@@ -62,16 +75,18 @@ const TranslateCtrl: React.FC =()=>{
     }
 
     if (action == 'trans') {
+        let s = Object.assign(btnStyle, pos)
         return (
-            <button className='translateBtn' style={posStyle} onClick={doTranslate}>
+            <button className='translateBtn' style={s} onClick={doTranslate}>
                 翻译
             </button>
         )
     }
 
     if (action == 'result') {
+        let s = Object.assign(spanStyle, pos)
         return (
-            <span className='translateSpan' style={posStyle}>{result}</span>
+            <span className='translateSpan' style={s}>{result}</span>
         )
     }
 

@@ -1,7 +1,15 @@
 import { DOMMessage, DOMMessageResponse } from '../types';
 
 function fetchTranslate(lang: string, text: string, callback: (ret: boolean, data: any) => void) {
-    fetch(`https://dev.nuxui.com/translate/${lang}/${text}`)
+    fetch(`https://dev.nuxui.com/translate`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json', // 设置请求的内容类型为JSON
+        }, body: JSON.stringify({
+            lang: lang,
+            text: text,
+        }),
+    })
         .then(function (response) {
             console.log("bg response: ", response);
             return response.json();
